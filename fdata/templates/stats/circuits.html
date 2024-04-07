@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            {% for header in theaders %}
+            <th> {{ header }} </th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for circuit in circuits %}
+            <tr>
+                <td>{{ circuit.id }}</td>
+                <td>{{ circuit.short_name }}</td>
+                <td>{{ circuit.official_name }}</td>
+                <td>{{ circuit.city }}</td>
+                <td>{{ circuit.country }}</td>
+                <td>{{ circuit.latitude }}</td>
+                <td>{{ circuit.longitude }}</td>
+                <td>{{ circuit.altiitude }}</td>
+                <td>{{ circuit.url }}</td>
+                <td>{{ circuit.num_races }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
