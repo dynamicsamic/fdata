@@ -30,8 +30,14 @@ ROOT_URLCONF = "fdata.urls"
 
 TEMPLATES = [
     {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "BACKEND": "django.template.backends.jinja2.Jinja2",
         "DIRS": [f"{BASE_DIR}/fdata/templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {"environment": "fdata.jinja2.environment"},
+    },
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
