@@ -5,8 +5,14 @@ from django.shortcuts import render
 from .models import Circuit
 
 
-def show_circuits(request: HttpRequest):
-    qs = Circuit.objects.annotate(num_races=Count("races"))
+async def get_circuits():
+    return Circuit.objects.annotate(num_races=Count("races")).order_by(
+        "-num_races"
+    )
+
+
+async def show_circuits(request: HttpRequest):
+    qs = await get_circuits()
     theaders = Circuit.get_fieldnames()
     theaders.append("num_races")
 
