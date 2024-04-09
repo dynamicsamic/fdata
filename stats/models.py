@@ -35,12 +35,23 @@ class Race(AbstractBaseModel):
     circuit = models.ForeignKey(
         Circuit, on_delete=models.PROTECT, related_name="races"
     )
-    circuit_name = models.CharField(max_length=128)
     year = models.PositiveSmallIntegerField()
-    race_number = models.PositiveSmallIntegerField()
+    round = models.PositiveSmallIntegerField()
     name = models.CharField(max_length=256)
     date = models.DateField()
-    wikiurl = models.URLField(max_length=256)
+    url = models.URLField(max_length=256)
 
     def __str__(self) -> str:
-        return f"{self.circuit_name} {self.year}"
+        return f"{self.name} {self.year}"
+
+
+class Driver(AbstractBaseModel):
+    short_name = models.CharField(max_length=128)
+    first_name = models.CharField(max_length=256)
+    last_name = models.CharField(max_length=256)
+    birthdate = models.DateField()
+    nationality = models.CharField(max_length=256)
+    url = models.URLField(max_length=256)
+
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.last_name}"
