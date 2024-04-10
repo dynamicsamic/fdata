@@ -1,18 +1,18 @@
 {% extends "index.html" %}
-
+{% block title %}Circuits{% endblock %}
 {% block content %}
-<table>
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             {% for header in theaders %}
-            <th> {{ header }} </th>
+            <th scope="col">{{ header }}</th>
             {% endfor %}
         </tr>
     </thead>
     <tbody>
         {% for circuit in circuits %}
             <tr>
-                <td>{{ circuit.id }}</td>
+                <th scope="row">{{ circuit.id }}</th>
                 <td>{{ circuit.short_name }}</td>
                 <td>{{ circuit.official_name }}</td>
                 <td>{{ circuit.city }}</td>
@@ -20,8 +20,8 @@
                 <td>{{ circuit.latitude }}</td>
                 <td>{{ circuit.longitude }}</td>
                 <td>{{ circuit.altitude }}</td>
-                <td>{{ circuit.url }}</td>
                 <td>{{ circuit.num_races }}</td>
+                <td>{{ circuit.url|urlize(20) }}</td>
             </tr>
         {% endfor %}
     </tbody>
