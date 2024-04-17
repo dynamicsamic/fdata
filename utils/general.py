@@ -1,6 +1,9 @@
+import operator
+
 import yaml
 from os import listdir
 from pathlib import Path
+from functools import reduce
 from os.path import isfile, join
 
 
@@ -26,11 +29,25 @@ def clear_extension(list_file: list) -> list:
     return clear_list
 
 
-def prepare_table_listt(config: dict):
+def get_from_dict(data_dict: dict, maplist: list):
+    """
+    Получает значение по списку вложенности из словаря
+    :param data_dict: словарь
+    :param maplist: список вложенности
+    :return: значение необходимого уровня вложенности
+    """
+    return reduce(operator.getitem, maplist, data_dict)
+
+
+def prepare_table_list(config: dict, list_filename: list):
     list_tables = []
-    print(config['tables']['stats_laptime'])
-    for table in config['tables']:
-        print(table)
-        list_tables.append(table['source_csv'])
+    for filename in list_filename:
+        # print(filename)
+        if filename in get_from_dict(data_dict=config, maplist=['tables']):
+            print(filename)
+            list_tables.append(get_from_dict(
+                data_dict=config,
+                maplist=['tables', filename, 'db_table_name']
+            ))
 
     return list_tables
