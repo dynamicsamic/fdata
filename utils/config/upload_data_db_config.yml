@@ -12,3 +12,12 @@ tables:
       position: position
       time: time
       milliseconds: time_ms
+  bdf:
+    db_table_name: stats_laptime
+    column:
+      raceId: race_id
+      driverId: driver_id
+      lap: lap_no
+      position: position
+      time: time
+      milliseconds: time_ms

@@ -1,5 +1,6 @@
 import pandas as pd
 from pathlib import Path
+from loguru import logger
 import utils.general as general
 
 
@@ -26,11 +27,18 @@ class UploadDataToDatabase():
             config=self.config
         )
 
+    def _get_column(self, table):
+        # TODO: Остановился на функционале получения колонок для таблицы
+        pass
+
     def _read_file(self):
         for name in self.config_list_file:
-            path_to_file = Path(f'{self.config['path']['raw_data']}/{name}.csv')
-            df = pd.read_csv(path_to_file)
-            print(df)
+            if name in self.dir_list_filename:
+                path_to_file = Path(f'{self.config['path']['raw_data']}/{name}.csv')
+                df = pd.read_csv(path_to_file)
+                print(df)
+            else:
+                logger.warning(f'Файл "{name}" отсутствует в папке источнике.')
 
     def _prepare_data(self):
         self._read_file()
