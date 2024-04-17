@@ -18,11 +18,21 @@ def read_yml(config_path: str) -> dict:
 
 
 def get_file_list(config: dict) -> list:
+    """
+    Получает имена файлов с расширением из дирректории. При обработке не учитывает дирректории
+    :param config: конфиг
+    :return: список имен файлов с расширениями
+    """
     onlyfiles = [f for f in listdir(config['path']['raw_data']) if isfile(join(config['path']['raw_data'], f))]
     return onlyfiles
 
 
 def clear_extension(list_file: list) -> list:
+    """
+    Очищает список файлов от расширений, оставляя только имена
+    :param list_file: список файлов с расширениями
+    :return: список файлов без расширений
+    """
     clear_list = []
     for file in list_file:
         clear_list.append(Path(file).stem)
@@ -39,15 +49,32 @@ def get_from_dict(data_dict: dict, maplist: list):
     return reduce(operator.getitem, maplist, data_dict)
 
 
-def prepare_table_list(config: dict, list_filename: list):
+def prepare_table_list(config: dict, list_filename: list) -> list:
+    """
+    Подготавливает список имен таблиц, которые должны появиться в базе данных
+    :param config: конфиг файл
+    :param list_filename: список таблиц из папки где размещены данные
+    :return: список имен
+    """
     list_tables = []
     for filename in list_filename:
-        # print(filename)
         if filename in get_from_dict(data_dict=config, maplist=['tables']):
-            print(filename)
             list_tables.append(get_from_dict(
                 data_dict=config,
                 maplist=['tables', filename, 'db_table_name']
             ))
 
     return list_tables
+
+
+def prepare_dir_table(config: dict) -> list:
+    """
+    Получает список имен файлов, которые необходимо обработать в папке назначения
+    :param config: конфиг файл
+    :return: список файлов
+    """
+    dir_tables = []
+    for table in config['tables']:
+        dir_tables.append(table)
+    return dir_tables
+
