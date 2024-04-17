@@ -2,13 +2,14 @@ db_name: db.sqllite3
 path:
   raw_data: data_source
   prepare_data: prepare_data
-table:
+tables:
   stats_laptime:
-    source_csv: lap_times
-    column:
-      raceId: race_id
-      driverId: driver_id
-      lap: lap_no
-      position: position
-      time: time
-      milliseconds: time_ms
+    source_csv:
+      lap_times:
+        column:
+          raceId: race_id
+          driverId: driver_id
+          lap: lap_no
+          position: position
+          time: time
+          milliseconds: time_ms

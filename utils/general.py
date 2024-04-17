@@ -24,3 +24,13 @@ def clear_extension(list_file: list) -> list:
     for file in list_file:
         clear_list.append(Path(file).stem)
     return clear_list
+
+
+def prepare_table_listt(config: dict):
+    list_tables = []
+    print(config['tables']['stats_laptime'])
+    for table in config['tables']:
+        print(table)
+        list_tables.append(table['source_csv'])
+
+    return list_tables
