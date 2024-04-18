@@ -27,14 +27,12 @@ class UploadDataToDatabase():
             config=self.config
         )
 
-    def _get_column(self, df, table):
-        pass
-
     def _read_file(self):
         for name in self.config_list_file:
             if name in self.dir_list_filename:
                 path_to_file = Path(f'{self.config['path']['raw_data']}/{name}.csv')
                 df = pd.read_csv(path_to_file)
+                print(name)
                 print(df)
                 self._prepare_data(
                     df=df,
@@ -51,10 +49,29 @@ class UploadDataToDatabase():
         for column in column_df:
             if column not in match_column.keys():
                 df.drop(column, axis=1, inplace=True)
-                logger.warning(f'Столбец {column} отсутствует в config файле, поэтому будет удален')
+                logger.warning(f'Столбец {column} отсутствует в config файле, поэтому был удален')
+        df.rename(
+            columns=match_column,
+            inplace=True
+        )
 
-        print(match_column.keys())
+        print(match_column)
         print(df)
+
+        self._load_data(
+            df=df,
+            tablename=table
+        )
+        # return df
+
+    def _load_data(self, df, tablename):
+        db_table_name = self.config['tables'][tablename]['db_table_name']
+        general.load_data(
+            db_path=self.config['db_name'],
+            df=df,
+            table_name=db_table_name
+        )
+
 
     def upload_data(self):
         self._read_file()

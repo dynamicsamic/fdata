@@ -1,6 +1,10 @@
 import operator
-
+import csv
+from django.apps import apps
+from fdata.settings import BASE_DIR
+import pandas as pd
 import yaml
+import sqlite3
 from os import listdir
 from pathlib import Path
 from functools import reduce
@@ -77,4 +81,14 @@ def prepare_dir_table(config: dict) -> list:
     for table in config['tables']:
         dir_tables.append(table)
     return dir_tables
+
+
+def load_data(db_path: str, df, table_name: str):
+    con = sqlite3.connect(db_path)
+    df.to_sql(
+        table_name,
+        con,
+        if_exists="replace",
+        index=False
+    )
 

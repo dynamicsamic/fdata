@@ -1,23 +1,16 @@
-db_name: db.sqllite3
+db_name: C:/py_project/fdata/db.sqlite3
 path:
   raw_data: data_source
   prepare_data: prepare_data
 tables:
-  lap_times:
-    db_table_name: stats_laptime
-    column:
-      raceId: race_id
-      driverId: driver_id
-      lap: lap_no
-      position: position
-      time: time
-      milliseconds: time_ms
   drivers:
     db_table_name: stats_driver
+    model_name: Driver
     column:
       driverId: id
-      driverRef: driver_id
-      lap: lap_no
-      position: position
-      time: time
-      milliseconds: time_ms
+      driverRef: short_name
+      forename: first_name
+      surname: last_name
+      dob: birthdate
+      nationality: nationality
+      url: url
