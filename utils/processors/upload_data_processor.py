@@ -32,8 +32,7 @@ class UploadDataToDatabase():
             if name in self.dir_list_filename:
                 path_to_file = Path(f'{self.config['path']['raw_data']}/{name}.csv')
                 df = pd.read_csv(path_to_file)
-                print(name)
-                print(df)
+                logger.info(f'Файл {name} успешно прочитан')
                 self._prepare_data(
                     df=df,
                     table=name
@@ -54,15 +53,13 @@ class UploadDataToDatabase():
             columns=match_column,
             inplace=True
         )
-
-        print(match_column)
-        print(df)
+        logger.info(f'Файл {table} подготовлен к загрузке в БД')
 
         self._load_data(
             df=df,
             tablename=table
         )
-        # return df
+        logger.info(f'Файл {table} загружен в БД')
 
     def _load_data(self, df, tablename):
         db_table_name = self.config['tables'][tablename]['db_table_name']

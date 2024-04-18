@@ -7,6 +7,7 @@ import yaml
 import sqlite3
 from os import listdir
 from pathlib import Path
+from loguru import logger
 from functools import reduce
 from os.path import isfile, join
 
@@ -91,4 +92,3 @@ def load_data(db_path: str, df, table_name: str):
         if_exists="replace",
         index=False
     )
-
