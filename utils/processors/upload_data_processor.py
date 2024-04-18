@@ -28,18 +28,7 @@ class UploadDataToDatabase():
         )
 
     def _get_column(self, df, table):
-        # TODO: Остановился на функционале получения колонок для таблицы
-        # столбцы из df
-        column_df = list(df.columns.values)
-        # столбцы из конфига
-        match_column = self.config['tables'][table]['column']
-        for column in column_df:
-            if column not in match_column.keys():
-                pass
-        print(match_column.keys())
-
-
-        print(column_df)
+        pass
 
     def _read_file(self):
         for name in self.config_list_file:
@@ -47,16 +36,25 @@ class UploadDataToDatabase():
                 path_to_file = Path(f'{self.config['path']['raw_data']}/{name}.csv')
                 df = pd.read_csv(path_to_file)
                 print(df)
-                self._get_column(
+                self._prepare_data(
                     df=df,
                     table=name
                 )
             else:
                 logger.warning(f'Файл "{name}" отсутствует в папке источнике.')
 
-    def _prepare_data(self):
-        self._read_file()
-        return self.config_list_file
+    def _prepare_data(self, df, table):
+        # столбцы из df
+        column_df = list(df.columns.values)
+        # столбцы из конфига
+        match_column = self.config['tables'][table]['column']
+        for column in column_df:
+            if column not in match_column.keys():
+                df.drop(column, axis=1, inplace=True)
+                logger.warning(f'Столбец {column} отсутствует в config файле, поэтому будет удален')
+
+        print(match_column.keys())
+        print(df)
 
     def upload_data(self):
-        pass
+        self._read_file()
