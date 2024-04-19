@@ -56,15 +56,28 @@ class Driver(AbstractBaseModel):
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
+      
+class DriverStanding(AbstractBaseModel):
+    race = models.ForeignKey(
+        Race, on_delete=models.PROTECT, related_name="driver_standings"
+    )
+    driver = models.ForeignKey(
+        Driver, on_delete=models.PROTECT, related_name="standings"
+    )
+    points = models.PositiveSmallIntegerField()
+    position = models.PositiveSmallIntegerField()
+    wins = models.PositiveSmallIntegerField()
+    
 
-class LapTime(models.Model):
+class LapTime(AbstractBaseModel):
     race = models.ForeignKey(
         Race, on_delete=models.PROTECT, related_name="lap_times"
     ),
     driver = models.ForeignKey(
-        Driver, on_delete=models.PROTECT, related_name="times"
+        Driver, on_delete=models.PROTECT, related_name="lap_times"
     ),
     lap_no = models.PositiveSmallIntegerField(),
     position = models.PositiveSmallIntegerField(),
     time = models.TimeField(),
     time_ms = models.PositiveSmallIntegerField()
+    
