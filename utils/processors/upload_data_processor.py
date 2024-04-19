@@ -69,6 +69,5 @@ class UploadDataToDatabase():
             table_name=db_table_name
         )
 
-
     def upload_data(self):
         self._read_file()

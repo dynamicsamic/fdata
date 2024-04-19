@@ -14,3 +14,24 @@ tables:
       dob: birthdate
       nationality: nationality
       url: url
+  circuits:
+    db_table_name: stats_circuit
+    model_name: Circuit
+    column:
+      circuitId: id
+      location: city
+      lat: latitude
+      lng: longitude
+      alt: altitude
+      url: url
+  races:
+    db_table_name: stats_race
+    model_name: Race
+    column:
+      raceId: id
+      year: year
+      round: round
+      circuitId: circuit_id
+      name: name
+      date: date
+      url: url
