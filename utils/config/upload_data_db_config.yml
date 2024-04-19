@@ -1,0 +1,37 @@
+db_name: C:/py_project/fdata/db.sqlite3
+path:
+  raw_data: data_source
+  prepare_data: prepare_data
+tables:
+  drivers:
+    db_table_name: stats_driver
+    model_name: Driver
+    column:
+      driverId: id
+      driverRef: short_name
+      forename: first_name
+      surname: last_name
+      dob: birthdate
+      nationality: nationality
+      url: url
+  circuits:
+    db_table_name: stats_circuit
+    model_name: Circuit
+    column:
+      circuitId: id
+      location: city
+      lat: latitude
+      lng: longitude
+      alt: altitude
+      url: url
+  races:
+    db_table_name: stats_race
+    model_name: Race
+    column:
+      raceId: id
+      year: year
+      round: round
+      circuitId: circuit_id
+      name: name
+      date: date
+      url: url
