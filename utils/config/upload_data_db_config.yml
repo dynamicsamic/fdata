@@ -7,7 +7,7 @@ tables:
     db_table_name: stats_driver
     model_name: Driver
     column:
-      driverId: id
+      id: id
       driverRef: short_name
       forename: first_name
       surname: last_name
@@ -18,8 +18,12 @@ tables:
     db_table_name: stats_circuit
     model_name: Circuit
     column:
+      id: id
       circuitId: id
+      circuitRef: short_name
+      name: official_name
       location: city
+      country: country
       lat: latitude
       lng: longitude
       alt: altitude
@@ -28,6 +32,7 @@ tables:
     db_table_name: stats_race
     model_name: Race
     column:
+      id: id
       raceId: id
       year: year
       round: round
@@ -35,3 +40,88 @@ tables:
       name: name
       date: date
       url: url
+  lap_times:
+    db_table_name: stats_laptime
+    model_name: LapTime
+    column:
+      id: id
+      raceId: race_id
+      driverId: driver_id
+      lap: lap
+      position: position
+      time: time
+      milliseconds: time_ms
+  constructors:
+    db_table_name: stats_constructor
+    model_name: Constructor
+    column:
+      id: id
+      constructorRef: short_name
+      name: name
+      nationality: nationality
+      url: url
+  constructor_standings:
+    db_table_name: stats_constructorstanding
+    model_name: ConstructorStanding
+    column:
+      id: id
+      points: points
+      position: position
+      wins: wins
+      constructorId: constructor_id
+      raceId: race_id
+  driver_standings:
+    db_table_name: stats_driverstanding
+    model_name: DriverStanding
+    column:
+      id: id
+      points: points
+      position: position
+      wins: wins
+      driverId: driver_id
+      raceId: race_id
+  pit_stops:
+    db_table_name: stats_pitstoptime
+    model_name: PitStopTime
+    column:
+      id: id
+      stop: stop_number
+      lap: lap
+      time: time
+      duration: duration
+      milliseconds: duration_ms
+      driverId: driver_id
+      raceId: race_id
+  qualifying:
+    db_table_name: stats_qualifying
+    model_name: Qualifying
+    column:
+      id: id
+      number: car_number
+      position: position
+      q1: q1
+      q2: q2
+      q3: q3
+      constructorId: constructor_id
+      driverId: driver_id
+      raceId: race_id
+  results:
+    db_table_name: stats_result
+    model_name: Result
+    column:
+      id: id
+      number: car_number
+      position: final_position
+      points: points
+      laps: laps
+      constructorId: constructor_id
+      driverId: driver_id
+      grid: grid_position_id
+      raceId: race_id
+      statusId: status_id
+  status:
+    db_table_name: stats_resultsatus
+    model_name: ResultSatus
+    column:
+      id: id
+      status: name
