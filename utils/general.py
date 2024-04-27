@@ -86,9 +86,10 @@ def prepare_dir_table(config: dict) -> list:
 
 def load_data(db_path: str, df, table_name: str):
     con = sqlite3.connect(db_path)
+    df['id'] = df.index
     df.to_sql(
         table_name,
         con,
-        if_exists="replace",
+        if_exists="append",
         index=False
     )
